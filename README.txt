@@ -1,0 +1,1 @@
+Bot for extending WPI Discord verification to other servers
