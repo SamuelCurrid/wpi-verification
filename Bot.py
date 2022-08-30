@@ -197,6 +197,11 @@ async def config(ctx):
                 await cursor.execute("SELECT verification_role FROM guilds WHERE id = ?", ctx.guild.id)
             ).fetchone()
         )[0]
+        if verification_role is None:
+            verification_role = None
+        else:
+            verification_role = f"<@&{verification_role}>"
+
         required_role = (
             await (
                 await cursor.execute("SELECT required_roles FROM guilds WHERE id = ?", ctx.guild.id)
@@ -211,13 +216,13 @@ async def config(ctx):
 
         if ctx.interaction is not None:
             await ctx.reply(
-                f"Verification Role: <@&{verification_role}>\nRequired Roles: {required_role}",
+                f"Verification Role: {verification_role}\nRequired Roles: {required_role}",
                 ephemeral=True,
                 allowed_mentions=discord.AllowedMentions.none()
             )
         else:
             await ctx.send_message(
-                f"Verification Role: <@&{verification_role}>\nRequired Roles: {required_role}",
+                f"Verification Role: {verification_role}\nRequired Roles: {required_role}",
                 allowed_mentions=discord.AllowedMentions.none()
             )
 
