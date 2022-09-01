@@ -451,7 +451,7 @@ async def on_member_update(before, after):
             if len(required_roles) > 0:
                 for role in after.roles:
                     if role in required_roles:
-                        after.add_roles(verification_role, reason='Verified, picked up required role')
+                        await after.add_roles(verification_role, reason='Verified, picked up required role')
                         return
             else:
                 await after.add_roles(verification_role, reason='Verified')
